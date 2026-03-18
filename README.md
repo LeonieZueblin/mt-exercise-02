@@ -1,6 +1,6 @@
 # MT Exercise 2: Pytorch RNN Language Models
 
-This repo shows how to train neural language models using [Pytorch example code](https://github.com/pytorch/examples/tree/master/word_language_model). Thanks to Emma van den Bold, the original author of these scripts. 
+Submission for LEZUB for exercise 02 for the MT course. Thanks to Emma van den Bold, the original author of these scripts. 
 
 # Requirements
 
@@ -14,7 +14,7 @@ This repo shows how to train neural language models using [Pytorch example code]
 
 Clone this repository in the desired place:
 
-    git clone https://github.com/marcamsler1/mt-exercise-02
+    git clone https://github.com/LeonieZueblin/mt-exercise-02
     cd mt-exercise-02
 
 Create a new virtualenv that uses Python 3. Please make sure to run this command outside of any virtual Python environment:
@@ -31,14 +31,29 @@ Download and preprocess data:
 
     ./scripts/download_data.sh
 
-Train a model:
+The download data script has been adapted to automatically use the `huggingface.co/datasets/Biddls/Onion_News` dataset.
+
+Train a model on the baseline settings:
 
     ./scripts/train.sh
 
-The training process can be interrupted at any time, and the best checkpoint will always be saved.
+If you are not using a version of PyTorch with CUDA enabled or do not have a CUDA GPU available, you may need to remove the 
+--accel flag from the training scripts (scripts/train.sh and scripts train_dropout_sweep.sh) as the original code uses a depreceated syntax to check for CUDA.
+
+To train a model on different dropout values, use the following script:
+
+    ./scripts/train_dropout_sweep.sh
+
+The training process can be interrupted at any time, and the best checkpoint will always be saved. Training takes circa 15-20 minutes on my GPU.  
 
 Generate (sample) some text from a trained model with:
 
     ./scripts/generate.sh
 
+Edit the model pointer in the generate.sh script to use a different model for generation. 
 
+Use the script:
+
+    python3 scripts/plot_perplexities.py 
+
+to generate the tables and charts for the perplexities from the data written to /models. 
