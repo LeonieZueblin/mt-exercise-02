@@ -1,4 +1,5 @@
 #! /bin/bash
+set -euo pipefail
 
 scripts=$(dirname "$0")
 base=$(realpath $scripts/..)
@@ -11,12 +12,14 @@ samples=$base/samples
 mkdir -p $samples
 
 num_threads=4
-device=""
 
 (cd $tools/pytorch-examples/word_language_model &&
-    CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
-        --data $data/grimm \
+    OMP_NUM_THREADS=$num_threads python generate.py \
+        --data $data/onion_news \
         --words 100 \
-        --checkpoint $models/model.pt \
+        --checkpoint $models/model_dropout_0_0.pt \
         --outf $samples/sample
 )
+
+echo "Generated text ($samples/sample):"
+cat $samples/sample
