@@ -1,4 +1,4 @@
-# MT Exercise 2: Pytorch RNN Language Models
+ # MT Exercise 2: Pytorch RNN Language Models
 
 Submission for LEZUB for exercise 02 for the MT course. Thanks to Emma van den Bold, the original author of these scripts. 
 
@@ -37,8 +37,8 @@ Train a model on the baseline settings:
 
     ./scripts/train.sh
 
-If you are not using a version of PyTorch with CUDA enabled or do not have a CUDA GPU available, you may need to remove the 
---accel flag from the training scripts (scripts/train.sh and scripts train_dropout_sweep.sh) as the original code uses a depreceated syntax to check for CUDA.
+**Important**: If you are not using a version of PyTorch with CUDA enabled or do not have a CUDA GPU available (e.g., ARM/Metal architecture), **you may need to remove the 
+--accel flag from the training scripts (scripts/train.sh line 17 and scripts train_dropout_sweep.sh line 29)** as the original code uses a depreceated syntax to check for CUDA.
 
 To train a model on different dropout values, use the following script:
 
